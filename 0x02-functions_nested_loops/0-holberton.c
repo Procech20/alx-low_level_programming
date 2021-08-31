@@ -1,14 +1,15 @@
 #include "main.h"
+
 /**
  * main - prints the string "Holberton" from a character array.
  * Return: 0 on success.
  */
 int main(void)
 {
-	char c[] = "Holberton";
+	char c[10] = "Holberton";
 	int i;
 
-	for (i = 0; i < 9; i++)
+	for (i = 0; i < 10; i++)
 	{
 		_putchar(c[i]);
 	}
