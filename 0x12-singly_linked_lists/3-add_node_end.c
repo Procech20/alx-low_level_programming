@@ -1,66 +1,44 @@
 #include "lists.h"
-
-int len(const char *str);
-list_t *create_node(const char *str);
-
+#include <string.h>
 /**
- * add_node_end - Adds a node at the end of a linked list.
- * @head: pointer to the first node of a linked list.
- * @str: String to include in the node.
- * Return: A pointer to the head of the linked list.
+ * _strlen - returns the length of a string.
+ * @s: character value.
+ *
+ *Return: i value
+ */
+int _strlen(const char *s)
+{
+int i;
+
+for (i = 0; s[i] != 0; i++)
+;
+return (i);
+}
+/**
+ * add_node_end -  adds a new node at the end of a list_t list.
+ * @head:pointer so struct.
+ * @str: string pointer.
+ *
+ * Return: the address of the new element.
  */
 list_t *add_node_end(list_t **head, const char *str)
 {
-	list_t *tmp;
-	list_t *new_node;
+list_t *new = (list_t *) malloc(sizeof(list_t));
+list_t *end = *head;
 
-	tmp = *head;
-	if (head == NULL)
-		return (NULL);
-	new_node = create_node(str);
-	if (new_node == NULL)
-		return (NULL);
-	if (*head == NULL) /*Initilizing the list with the first node*/
-	{
-		*head = new_node;
-		return (*head);
-	}
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = new_node;
-	return (*head);
-}
-
-/**
- * create_node - Creates a new node.
- * @str: String to add to the node.
- * Return: A pointer to the allocated memory
- */
-list_t *create_node(const char *str)
+if (new == NULL)
+return (NULL);
+new->str = strdup(str);
+new->len = _strlen(str);
+new->next = NULL;
+if (*head == NULL)
+(*head) = new;
+else
 {
-	list_t *new_node;
-
-	new_node = malloc(sizeof(list_t));
-	if (new_node == NULL)
-		return (NULL);
-	new_node->str = strdup(str);
-	new_node->len = len(str);
-	new_node->next = NULL;
-	return (new_node);
+while (end->next != NULL)
+end = end->next;
 }
-
-/**
- * len - Calculates the length of a string.
- * @str: Constant string
- * Return: The length of the string
- */
-int len(const char *str)
-{
-	int i;
-
-	if (str == NULL)
-		return (0);
-	for (i = 0; str[i] != '\0'; i++)
-		;
-	return (i);
+if (end)
+end->next = new;
+return (new);
 }
